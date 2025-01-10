@@ -1,0 +1,31 @@
+// Existing models...
+
+model User {
+  // Existing fields...
+  profileTheme    ProfileTheme?
+  portfolioItems  PortfolioItem[]
+}
+
+model ProfileTheme {
+  id              String    @id @default(cuid())
+  primaryColor    String
+  secondaryColor  String
+  fontFamily      String
+  userId          String    @unique
+  user            User      @relation(fields: [userId], references: [id])
+}
+
+model PortfolioItem {
+  id          String    @id @default(cuid())
+  title       String
+  description String
+  imageUrl    String?
+  link        String?
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+// Other existing models...
+
